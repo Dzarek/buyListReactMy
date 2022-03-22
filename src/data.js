@@ -1,3 +1,10 @@
+import kurczakImg from "./images/produkty/kurczak.svg";
+import wołoweImg from "./images/produkty/mięso_wołowe.svg";
+import wieprzoweImg from "./images/produkty/mięso_wieprzowe.svg";
+import mydłoImg from "./images/produkty/mydło.svg";
+import patyczkiImg from "./images/produkty/patyczkiDoUszu.svg";
+import szamponImg from "./images/produkty/szampon.svg";
+
 export const jedzenie = [
   {
     src: "https://img.icons8.com/office/40/000000/bread.png",
@@ -95,17 +102,17 @@ export const jedzenie = [
     category: "mięso",
   },
   {
-    src: "./produkty/kurczak.svg",
+    src: kurczakImg,
     alt: "kurczak",
     category: "mięso",
   },
   {
-    src: "./produkty/mięso_wieprzowe.svg",
+    src: wieprzoweImg,
     alt: "mięso wieprzowe",
     category: "mięso",
   },
   {
-    src: "./produkty/mięso_wołowe.svg",
+    src: wołoweImg,
     alt: "mięso wołowe",
     category: "mięso",
   },
@@ -173,7 +180,7 @@ export const chemia = [
     category: "higiena",
   },
   {
-    src: "./produkty/mydło.svg",
+    src: mydłoImg,
     alt: "mydło",
     category: "higiena",
   },
@@ -183,7 +190,7 @@ export const chemia = [
     category: "higiena",
   },
   {
-    src: "./produkty/patyczkiDoUszu.svg",
+    src: patyczkiImg,
     alt: "patyczki do uszu",
     category: "higiena",
   },
@@ -193,7 +200,7 @@ export const chemia = [
     category: "higiena",
   },
   {
-    src: "./produkty/szampon.svg",
+    src: szamponImg,
     alt: "szampon",
     category: "higiena",
   },

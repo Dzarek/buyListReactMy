@@ -9,8 +9,6 @@ const AppProvider = ({ children }) => {
   const [productName, setProductName] = useState("");
   const [edit, setEdit] = useState(false);
   const [editID, setEditID] = useState(null);
-  const container = document.querySelector(".grocery-container");
-  const alert = document.querySelector(".alert");
 
   const handleChange = (e) => {
     setProductName(e.target.value);
@@ -19,6 +17,7 @@ const AppProvider = ({ children }) => {
   const addItem = (e) => {
     e.preventDefault();
     const id = new Date().getTime().toString().slice(3, -1);
+    const container = document.querySelector(".grocery-container");
     if (productName && !edit) {
       displayAlert("dodano do listy", "success");
       const newProduct = {
@@ -27,9 +26,9 @@ const AppProvider = ({ children }) => {
       };
       setProducts([...products, newProduct]);
       container.classList.add("show-container");
+      setBackToDefault();
     } else if (productName && edit) {
       displayAlert("produkt zmieniony", "success");
-
       setProducts(
         products.map((item) => {
           if (item.id === editID) {
@@ -38,8 +37,21 @@ const AppProvider = ({ children }) => {
           return item;
         })
       );
+      setBackToDefault();
     }
-    setBackToDefault();
+  };
+
+  const handleEditItem = (id) => {
+    const alert = document.querySelector(".alert");
+    function displayAlertEdition(text, action) {
+      alert.textContent = text;
+      alert.classList.add(`alert-${action}`);
+    }
+    displayAlertEdition("edycja", "success");
+    const oneProduct = products.find((item) => item.id === id);
+    setProductName(oneProduct.name);
+    setEdit(true);
+    setEditID(id);
   };
 
   function setBackToDefault() {
@@ -49,6 +61,7 @@ const AppProvider = ({ children }) => {
   }
 
   function displayAlert(text, action) {
+    const alert = document.querySelector(".alert");
     alert.textContent = text;
     alert.classList.add(`alert-${action}`);
     //remove alert
@@ -66,18 +79,6 @@ const AppProvider = ({ children }) => {
     const updateProducts = products.filter((item) => item.id !== id);
     setProducts(updateProducts);
   };
-  const handleEditItem = (id) => {
-    function displayAlertEdition(text, action) {
-      alert.textContent = text;
-      alert.classList.add(`alert-${action}`);
-    }
-    displayAlertEdition("edycja", "success");
-
-    const oneProduct = products.find((item) => item.id === id);
-    setProductName(oneProduct.name);
-    setEdit(true);
-    setEditID(id);
-  };
 
   return (
     <AppContext.Provider
@@ -90,6 +91,9 @@ const AppProvider = ({ children }) => {
         deleteEverything,
         deleteItem,
         handleEditItem,
+        setProductName,
+        displayAlert,
+        setProducts,
       }}
     >
       {children}
