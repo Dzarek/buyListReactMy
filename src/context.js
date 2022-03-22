@@ -9,6 +9,7 @@ const AppProvider = ({ children }) => {
   const [productName, setProductName] = useState("");
   const [edit, setEdit] = useState(false);
   const [editID, setEditID] = useState(null);
+  const [openClearModal, setOpenClearModal] = useState(false);
 
   const handleChange = (e) => {
     setProductName(e.target.value);
@@ -72,7 +73,11 @@ const AppProvider = ({ children }) => {
   }
 
   const deleteEverything = () => {
+    const container = document.querySelector(".grocery-container");
+    container.classList.remove("show-container");
     setProducts([]);
+    setOpenClearModal(false);
+    displayAlert("lista wyczyszczona", "success");
   };
 
   const deleteItem = (id) => {
@@ -86,14 +91,16 @@ const AppProvider = ({ children }) => {
         productName,
         edit,
         products,
+        openClearModal,
         handleChange,
         addItem,
         deleteEverything,
         deleteItem,
         handleEditItem,
-        setProductName,
         displayAlert,
         setProducts,
+        setProductName,
+        setOpenClearModal,
       }}
     >
       {children}

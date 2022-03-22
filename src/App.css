@@ -507,8 +507,7 @@ Grocery List
 }
 
 
-.favorite-container,
-.favorite2-container {
+.favorite-container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -517,8 +516,7 @@ Grocery List
   width: 100%;
 }
 
-.favorite-container-buttons,
-.favorite-container2-buttons {
+.favorite-container-buttons {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -530,8 +528,7 @@ Grocery List
   cursor: pointer;
 }
 
-.favorite-select,
-.favorite-select2 {
+.favorite-select {
   font-size: 15px;
   width: 50%;
   padding: 5px 20px;
@@ -593,14 +590,12 @@ Grocery List
 
 @media screen and (max-width: 800px) {
 
-  .favorite-container-buttons,
-  .favorite-container2-buttons {
+  .favorite-container-buttons {
     width: 100vw;
   }
 }
 
-.favorite-container-products,
-.favorite-container2-products {
+.favorite-container-products {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -635,8 +630,7 @@ Grocery List
 }
 
 
-.favorite-container img,
-.favorite2-container img {
+.favorite-container img {
   width: 70px;
   height: 70px;
   margin: 2vw;
@@ -649,14 +643,11 @@ Grocery List
   display: none;
 }
 
-.favorite-container img:hover,
-.favorite2-container img:hover {
-
+.favorite-container img:hover {
   animation: rotateImg 1s ease-in;
 }
 
 @keyframes rotateImg {
-
   0% {
     transform: translateY(0)
   }
@@ -699,4 +690,42 @@ Grocery List
   height: 40px;
   background-image: none;
   padding-top: 0;
+}
+
+.clearModal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.95);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.clearModal h2 {
+  margin-bottom: 20vh;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2rem;
+  width: 80%;
+}
+
+.clearModal section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clearModal section button {
+  margin: 0 10vw;
+  padding: 10px 15px;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+  border: 2px solid #fff;
 }
