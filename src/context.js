@@ -30,9 +30,9 @@ const AppProvider = ({ children }) => {
       }
     };
     fetchProducts();
-    // setInterval(() => {
-    //   fetchProducts();
-    // }, 60000);
+    setInterval(() => {
+      fetchProducts();
+    }, 60000);
   }, []);
 
   const handleChange = (e) => {
