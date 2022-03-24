@@ -11,22 +11,33 @@ const AppProvider = ({ children }) => {
   const [edit, setEdit] = useState(false);
   const [editID, setEditID] = useState(null);
   const [openClearModal, setOpenClearModal] = useState(false);
+  const [activeProducts, setActiveProducts] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       /* eslint-disable no-unused-vars */
       let singleProduct = {};
       /* eslint-disable no-unused-vars */
-      const response = await fetch(url);
-      const data = await response.json();
-      const items = data.data.map((item) => {
-        const {
-          attributes: { idproduct, name },
-        } = item;
-        return (singleProduct = { id: idproduct, name: name });
-      });
-      if (items.length > 0) {
-        setProducts(items);
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const items = data.data.map((item) => {
+          const {
+            attributes: { idproduct, name },
+          } = item;
+          return (singleProduct = { id: idproduct, name: name });
+        });
+        if (items.length > 0) {
+          setProducts(items);
+        } else {
+          setProducts([]);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
       }
     };
     fetchProducts();
@@ -56,6 +67,7 @@ const AppProvider = ({ children }) => {
     });
 
   const addItem = (e) => {
+    setLoading(false);
     e.preventDefault();
     const id = new Date().getTime().toString().slice(3, -1);
     if (productName && !edit) {
@@ -163,6 +175,8 @@ const AppProvider = ({ children }) => {
         edit,
         products,
         openClearModal,
+        activeProducts,
+        loading,
         handleChange,
         addItem,
         deleteEverything,
@@ -173,6 +187,8 @@ const AppProvider = ({ children }) => {
         setProductName,
         setOpenClearModal,
         postProducts,
+        setActiveProducts,
+        setLoading,
       }}
     >
       {children}

@@ -1,10 +1,19 @@
 import React from "react";
 import GroceryItem from "./GroceryItem";
 import { useGlobalContext } from "../context";
+import Loading from "./Loading";
 
 const GroceryContainer = () => {
-  const { products, deleteEverything, openClearModal, setOpenClearModal } =
-    useGlobalContext();
+  const {
+    products,
+    deleteEverything,
+    openClearModal,
+    setOpenClearModal,
+    loading,
+  } = useGlobalContext();
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div
       className={

@@ -8,7 +8,7 @@ import SpeechRecognition, {
 
 const VoiceForm = () => {
   const [voiceOn, setVoiceOn] = useState(true);
-  const { setProducts, products, displayAlert, postProducts } =
+  const { setProducts, products, displayAlert, postProducts, setLoading } =
     useGlobalContext();
 
   const commands = [
@@ -42,6 +42,7 @@ const VoiceForm = () => {
   };
 
   const addItemVoice = (food) => {
+    setLoading(false);
     const id = new Date().getTime().toString().slice(3, -1);
     if (food) {
       const newProduct = {

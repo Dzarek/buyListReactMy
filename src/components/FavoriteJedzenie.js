@@ -46,7 +46,9 @@ const FavoriteJedzenie = ({ jedzenie, addItemImage }) => {
             className={`${produkt.category}Bgc`}
             src={produkt.src}
             alt={produkt.alt}
-            onClick={() => addItemImage(produkt)}
+            onClick={() => {
+              addItemImage(produkt);
+            }}
           />
         ))}
       </div>

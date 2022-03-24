@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { useGlobalContext } from "../context";
 import { jedzenie, chemia } from "../data";
 import FavoriteJedzenie from "./FavoriteJedzenie";
 import FavoriteChemia from "./FavoriteChemia";
 
 const Favorite = () => {
-  const { displayAlert, setProducts, products, postProducts } =
-    useGlobalContext();
-  const [activeProducts, setActiveProducts] = useState("");
+  const {
+    displayAlert,
+    setProducts,
+    products,
+    postProducts,
+    activeProducts,
+    setActiveProducts,
+    setLoading,
+  } = useGlobalContext();
 
   const handleFood = () => {
     setActiveProducts("food");
@@ -17,6 +23,7 @@ const Favorite = () => {
     setActiveProducts("chemic");
   };
   const addItemImage = (produkt) => {
+    setLoading(false);
     const id = new Date().getTime().toString().slice(3, -1);
     const newProduct = {
       id: id,
