@@ -5,7 +5,8 @@ import FavoriteJedzenie from "./FavoriteJedzenie";
 import FavoriteChemia from "./FavoriteChemia";
 
 const Favorite = () => {
-  const { displayAlert, setProducts, products } = useGlobalContext();
+  const { displayAlert, setProducts, products, postProducts } =
+    useGlobalContext();
   const [activeProducts, setActiveProducts] = useState("");
 
   const handleFood = () => {
@@ -22,9 +23,8 @@ const Favorite = () => {
       name: produkt.alt,
     };
     setProducts([...products, newProduct]);
+    postProducts(id, produkt.alt);
     displayAlert("dodano do listy", "success");
-    const container = document.querySelector(".grocery-container");
-    container.classList.add("show-container");
   };
 
   return (

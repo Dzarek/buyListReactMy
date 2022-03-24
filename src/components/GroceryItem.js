@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useGlobalContext } from "../context";
 
 const GroceryItem = ({ id, name }) => {
   const { deleteItem, handleEditItem } = useGlobalContext();
+  const [newClass, setNewClass] = useState(false);
+
   return (
-    <article data-id={id} className="grocery-item">
+    <article
+      data-id={id}
+      className={newClass ? "grocery-item toLeftSide" : "grocery-item"}
+      // className="grocery-item"
+    >
       <div className="ok">
         <button
           type="button"
@@ -20,6 +26,7 @@ const GroceryItem = ({ id, name }) => {
         type="button"
         className="delete-btn"
         onClick={() => deleteItem(id)}
+        onMouseDown={() => setNewClass(true)}
       >
         <FaTrash />
       </button>

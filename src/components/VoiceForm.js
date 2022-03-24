@@ -8,13 +8,14 @@ import SpeechRecognition, {
 
 const VoiceForm = () => {
   const [voiceOn, setVoiceOn] = useState(true);
-  const { setProducts, products, displayAlert } = useGlobalContext();
+  const { setProducts, products, displayAlert, postProducts } =
+    useGlobalContext();
 
   const commands = [
     {
       command: "*",
       callback: (food) => {
-        addItemImage(food);
+        addItemVoice(food);
       },
     },
   ];
@@ -40,7 +41,7 @@ const VoiceForm = () => {
     }
   };
 
-  const addItemImage = (food) => {
+  const addItemVoice = (food) => {
     const id = new Date().getTime().toString().slice(3, -1);
     if (food) {
       const newProduct = {
@@ -48,9 +49,8 @@ const VoiceForm = () => {
         name: food,
       };
       setProducts([...products, newProduct]);
+      postProducts(id, food);
       displayAlert("dodano do listy", "info");
-      const container = document.querySelector(".grocery-container");
-      container.classList.add("show-container");
     }
   };
 

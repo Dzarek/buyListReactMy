@@ -729,3 +729,7 @@ Grocery List
   border-radius: 5px;
   border: 2px solid #fff;
 }
+
+.toLeftSide {
+  transform: translateX(100vw)
+}

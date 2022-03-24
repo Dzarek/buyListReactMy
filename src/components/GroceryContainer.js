@@ -6,10 +6,16 @@ const GroceryContainer = () => {
   const { products, deleteEverything, openClearModal, setOpenClearModal } =
     useGlobalContext();
   return (
-    <div className="grocery-container">
+    <div
+      className={
+        products.length > 0
+          ? "grocery-container show-container"
+          : "grocery-container"
+      }
+    >
       <div className="grocery-list">
-        {products.map((item, index) => {
-          return <GroceryItem key={index} {...item} />;
+        {products.map((item) => {
+          return <GroceryItem key={item.id} {...item} />;
         })}
       </div>
       <button
