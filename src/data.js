@@ -76,7 +76,7 @@ export const jedzenie = [
     category: "owoce",
   },
   {
-    src: "https://img.icons8.com/officel/16/000000/orange.png",
+    src: "https://img.icons8.com/officel/40/000000/orange.png",
     alt: "pomarańcze",
     category: "owoce",
   },
