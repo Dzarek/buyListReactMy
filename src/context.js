@@ -2,9 +2,20 @@ import React, { useState, useEffect, useContext } from "react";
 
 const AppContext = React.createContext();
 
-const url = `https://buy-list-dzarek.herokuapp.com/api/products/`;
+const url = process.env.REACT_APP_ACCESS_TOKEN;
 
 const AppProvider = ({ children }) => {
+  const getLocalStorage = () => {
+    const saved = localStorage.getItem("login");
+    const initialValue = JSON.parse(saved);
+    return initialValue;
+  };
+  const getLocalStorageRemember = () => {
+    const saved = localStorage.getItem("rememberLogin");
+    const initialValue = JSON.parse(saved);
+    return initialValue;
+  };
+
   const alert = document.querySelector(".alert");
   const [products, setProducts] = useState([]);
   const [productName, setProductName] = useState("");
@@ -13,38 +24,54 @@ const AppProvider = ({ children }) => {
   const [openClearModal, setOpenClearModal] = useState(false);
   const [activeProducts, setActiveProducts] = useState("");
   const [loading, setLoading] = useState(true);
+  const [login, setLogin] = useState(getLocalStorage());
+  const [rememberLogin, setRememberLogin] = useState(getLocalStorageRemember());
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      /* eslint-disable no-unused-vars */
-      let singleProduct = {};
-      /* eslint-disable no-unused-vars */
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const items = data.data.map((item) => {
-          const {
-            attributes: { idproduct, name },
-          } = item;
-          return (singleProduct = { id: idproduct, name: name });
-        });
-        if (items.length > 0) {
-          setProducts(items);
-        } else {
-          setProducts([]);
+    localStorage.setItem("rememberLogin", JSON.stringify(rememberLogin));
+  }, [rememberLogin]);
+
+  useEffect(() => {
+    if (rememberLogin) {
+      localStorage.setItem("login", JSON.stringify(login));
+    } else {
+      localStorage.setItem("login", JSON.stringify(true));
+    }
+  }, [login, rememberLogin]);
+
+  useEffect(() => {
+    if (!login) {
+      const fetchProducts = async () => {
+        setLoading(true);
+        /* eslint-disable no-unused-vars */
+        let singleProduct = {};
+        /* eslint-disable no-unused-vars */
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          const items = data.data.map((item) => {
+            const {
+              attributes: { idproduct, name },
+            } = item;
+            return (singleProduct = { id: idproduct, name: name });
+          });
+          if (items.length > 0) {
+            setProducts(items);
+          } else {
+            setProducts([]);
+          }
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
         }
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    };
-    fetchProducts();
-    setInterval(() => {
+      };
       fetchProducts();
-    }, 60000);
-  }, []);
+      setInterval(() => {
+        fetchProducts();
+      }, 60000);
+    }
+  }, [login]);
 
   const handleChange = (e) => {
     setProductName(e.target.value);
@@ -189,6 +216,10 @@ const AppProvider = ({ children }) => {
         postProducts,
         setActiveProducts,
         setLoading,
+        login,
+        setLogin,
+        rememberLogin,
+        setRememberLogin,
       }}
     >
       {children}
